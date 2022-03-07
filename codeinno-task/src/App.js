@@ -1,17 +1,17 @@
-import { useEffect } from "react"
+import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
+import General from "./components/General/General";
+import Restaurant from "./components/Restaurant/Restaurant";
 
 function App() {
-  useEffect(() => {
-    fetch("/data").then((resp) => resp.json()).then((resp) => {
-      console.log(resp)
-    })
-  }, [])
-
   return (
-    <div>
-      <></>
-      hello
-    </div>
+    <Router>
+      <Routes>
+        <Route exact path="/" element={<General />}>
+        </Route>
+        <Route exact path="/restaurant/:id" element={<Restaurant />}>
+        </Route>
+      </Routes>
+    </Router>
   );
 }
 
