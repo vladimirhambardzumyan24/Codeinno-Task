@@ -4,21 +4,22 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { requestUrl } from "../../constants/requestUrl";
 import { Link } from "react-router-dom";
+import Loader from "../loader/Loader";
 
 export default function General() {
   const [restaurantsData, setRestaurantsData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     axios.get(requestUrl.GET_RESTAURANTS).then((resp) => {
-      const sortedRestaurantData = resp.data.restaurants.sort(
-        (a, b) => b.rate - a.rate
-      );
+      const sortedRestaurantData = resp.data.sort((a, b) => b.rate - a.rate);
       setRestaurantsData(sortedRestaurantData);
-      console.log(resp.data.restaurants);
+      setIsLoading(true)
+      console.log(resp.data);
     });
   }, []);
 
-  return (
+  return isLoading ? (
     <div className="p-4 max-w-md bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700">
       <div className="flex justify-between items-center mb-4">
         <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">
@@ -69,5 +70,7 @@ export default function General() {
         </ul>
       </div>
     </div>
+  ) : (
+    <Loader />
   );
 }
