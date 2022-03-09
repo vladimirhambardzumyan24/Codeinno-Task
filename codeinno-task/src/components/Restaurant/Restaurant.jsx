@@ -64,7 +64,7 @@ export default function Restaurant() {
         {restaurantData.reviews.map((feedback, index) => {
           return (
             <div key={index} className="break-words py-2">
-              {feedback.comments}
+              {index + 1}. {feedback.comments}
             </div>
           );
         })}
